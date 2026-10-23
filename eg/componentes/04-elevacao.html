@@ -1,0 +1,293 @@
+<!-- @dsCard group="Spacing" -->
+<!doctype html>
+<meta charset="utf-8">
+<title>Elevação e forma — EG Engenharia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* @tokens-preset-a:inicio */
+  :root {
+  /* --- Cor --- */
+  --eb-bg: #e6dcce;             /* fundo do app — bege da marca */
+  --eb-bg-claro: #f4efe9;       /* bege 45% mais claro: telas densas, listas */
+  --eb-card: #ffffff;           /* cards e superficies */
+  --eb-primaria: #cd6543;       /* marca: icone, badge, gradiente, borda */
+  --eb-primaria-botao: #b8532f; /* botao com texto branco — ver "Contraste" */
+  --eb-primaria-texto: #a84a28; /* terracota como TEXTO sobre fundo claro */
+  --eb-acento: #e6a87d;         /* icones, gradiente, anel de foco */
+  --eb-hover: #e2bca8;          /* hover, superficie secundaria */
+  --eb-texto: #2a1b14;
+  --eb-texto-suave: #6b5e55;
+  --eb-texto-invertido: #ffffff;
+  --eb-borda: rgba(255, 255, 255, .5);  /* borda do glassmorphism */
+  --eb-borda-sutil: #e9e2d8;            /* divisoria dentro de card branco */
+
+  /* --- Subtons da primaria (terracota misturada ao branco) ---
+     Superficie clara com identidade: fundo de icone, chip, botao tonal,
+     linha selecionada, card de destaque. 50-200 aceitam os dois textos;
+     300 so aceita --eb-texto (o suave da 3,92:1) — use como borda/enfeite. */
+  --eb-subtom-50:  #fcf6f4;
+  --eb-subtom-100: #f9ede8;
+  --eb-subtom-200: #f4ddd6;
+  --eb-subtom-300: #ecc4b8;
+
+  /* --- Monocromaticos: preto, branco e cinzas neutros (R=G=B) ---
+     Para o que nao deve ter cor: tabela de dados, divisoria, icone
+     neutro, estado desabilitado, documento/PDF, foto em P&B.
+     Contraste como TEXTO (minimo 4,5:1):
+       no branco  → 500 ou mais escuro (500 da 4,74)
+       no bege    → 600 ou mais escuro (500 da 3,50 e REPROVA)
+       texto branco em cima → 500 ou mais escuro
+     O texto do produto continua sendo --eb-texto (marrom quente); o
+     preto e para quando a peca pede neutro de verdade. Cinza e frio:
+     rende melhor sobre card branco do que direto sobre o bege. */
+  --eb-branco: #ffffff;
+  --eb-cinza-50:  #fafafa;
+  --eb-cinza-100: #f4f4f4;
+  --eb-cinza-200: #e8e8e8;
+  --eb-cinza-300: #d4d4d4;
+  --eb-cinza-400: #a3a3a3;
+  --eb-cinza-500: #737373;
+  --eb-cinza-600: #525252;
+  --eb-cinza-700: #3a3a3a;
+  --eb-cinza-800: #262626;
+  --eb-cinza-900: #171717;
+  --eb-preto: #0a0a0a;
+
+  /* --- Forma (Bento Grid) — cantos suaves ---
+     Regra de concentricidade: raio de dentro = raio de fora - padding.
+     Card 24 com padding 8 → filho 16. Sem isso o canto "morde". */
+  --eb-radius-sm: 10px;         /* chip, tag, input pequeno */
+  --eb-radius: 16px;            /* botao, input, tile de lista */
+  --eb-radius-icone: 14px;      /* tile de icone 44-48px (squircle) */
+  --eb-radius-card: 24px;       /* card */
+  --eb-radius-bloco: 32px;      /* bloco grande, folha inferior, modal */
+  --eb-radius-pill: 999px;
+  --eb-pad-card: 32px;
+
+  /* --- Elevacao — o efeito "flutuando" ---
+     Cada nivel e DUAS sombras: uma curta e marrom (contato — onde o
+     objeto "encosta") e uma longa e terracota (ambiente — a luz quente
+     que ele rebate). A longa tem spread negativo: fica embaixo do objeto,
+     nao vaza para os lados. Cinza/preto puro apagaria a identidade.
+       1  repouso      cards em grade, tiles de lista
+       2  destaque     card principal, input em foco
+       3  flutuante    botao, navbar ilha, mini-card, FAB
+       4  sobreposicao modal, folha inferior, popover, menu */
+  --eb-elevacao-1: 0 1px 2px rgba(42, 27, 20, .06),
+                   0 4px 12px -2px rgba(205, 101, 67, .08);
+  --eb-elevacao-2: 0 2px 4px rgba(42, 27, 20, .05),
+                   0 12px 28px -6px rgba(205, 101, 67, .14);
+  --eb-elevacao-3: 0 4px 8px rgba(42, 27, 20, .06),
+                   0 20px 40px -10px rgba(205, 101, 67, .22);
+  --eb-elevacao-4: 0 8px 16px rgba(42, 27, 20, .08),
+                   0 32px 64px -16px rgba(205, 101, 67, .30);
+  --eb-brilho: inset 0 1px 0 rgba(255, 255, 255, .7);   /* aresta de luz no topo */
+  --eb-sombra-botao: 0 10px 24px -8px rgba(184, 83, 47, .55); /* halo do CTA */
+  --eb-sombra: var(--eb-elevacao-2);  /* nome antigo — segue valendo */
+  --eb-elevar: translateY(-2px);      /* hover de quem flutua */
+
+  --eb-blur: blur(12px);
+  --eb-ruido: .04;              /* opacidade do <feTurbulence> global */
+
+  /* --- Gradientes ---
+     Vivo = MARCA, nunca leva texto (branco da 2,05-3,79; escuro 4,38).
+     Botao = unico que leva texto branco: as DUAS pontas passam 4,5:1.
+     Os suaves sao superficie: o texto de cima e sempre --eb-texto. */
+  --eb-gradiente: linear-gradient(120deg, #cd6543, #e6a87d);           /* vivo */
+  --eb-gradiente-botao: linear-gradient(180deg, #bd5733, #a84a28);     /* 4,59 → 5,71 */
+  --eb-gradiente-suave: linear-gradient(135deg, #fcf6f4 0%, #f4ddd6 100%);
+  --eb-gradiente-card: linear-gradient(180deg, #ffffff 0%, #fdf9f7 100%);
+  --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
+
+  /* --- Tipografia --- */
+  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
+  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Movimento --- */
+  --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --eb-dur: 220ms;
+  }
+  /* @tokens-preset-a:fim */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px;
+    font-family: var(--eb-fonte-display);
+    background: var(--eb-gradiente-fundo); background-color: var(--eb-bg);
+    color: var(--eb-texto); min-height: 100vh;
+  }
+  h1 { font-size: 15px; letter-spacing: .04em; text-transform: uppercase;
+       color: var(--eb-texto-suave); font-weight: 600; margin: 0 0 4px; }
+  h2 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase;
+       color: var(--eb-texto-suave); font-weight: 600; margin: 40px 0 4px; }
+  p.sub { margin: 0 0 24px; font-size: 13px; color: var(--eb-texto-suave); max-width: 62ch; line-height: 1.5; }
+  code { font-family: var(--eb-fonte-dados); font-size: .92em; }
+
+  /* ---------- Níveis ---------- */
+  .niveis { display: grid; gap: 28px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .nivel { background: var(--eb-gradiente-card); border-radius: var(--eb-radius-card);
+           padding: 22px 20px; min-height: 150px;
+           display: flex; flex-direction: column; justify-content: space-between;
+           box-shadow: var(--sombra), var(--eb-brilho);
+           transition: transform var(--eb-dur) var(--eb-ease); }
+  .nivel:hover { transform: var(--eb-elevar); }
+  .nivel .n { font-size: 34px; font-weight: 700; line-height: 1;
+              font-variant-numeric: tabular-nums; color: var(--eb-primaria); }
+  .nivel .nome { font-weight: 600; font-size: 14px; margin-top: 10px; }
+  .nivel .uso { font-size: 11.5px; color: var(--eb-texto-suave); margin-top: 4px; line-height: 1.45; }
+  .nivel .tok { font-family: var(--eb-fonte-dados); font-size: 11px; color: var(--eb-texto-suave); }
+
+  /* ---------- Raios ---------- */
+  .raios { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+  .raio { background: var(--eb-subtom-100); box-shadow: var(--eb-elevacao-1);
+          display: grid; place-items: end start; padding: 10px 12px;
+          font-family: var(--eb-fonte-dados); font-size: 11px; color: var(--eb-primaria-texto);
+          font-variant-numeric: tabular-nums; }
+  .raio b { display: block; font-family: var(--eb-fonte-display); font-size: 12px; color: var(--eb-texto); }
+
+  /* ---------- Composição: pedaço do Portal do Cliente ---------- */
+  .cena { position: relative; max-width: 390px; padding: 20px 16px 132px;
+          border-radius: var(--eb-radius-bloco); overflow: hidden;
+          background: var(--eb-gradiente-fundo); background-color: var(--eb-bg);
+          box-shadow: var(--eb-elevacao-2); }
+  .ola { font-size: 13px; color: var(--eb-texto-suave); }
+  .obra { font-size: 22px; font-weight: 700; margin: 2px 0 16px; }
+
+  .card { background: var(--eb-gradiente-card); border-radius: var(--eb-radius-card);
+          padding: 20px; box-shadow: var(--eb-elevacao-2), var(--eb-brilho); }
+  .card + .card { margin-top: 14px; }
+  .linha { display: flex; align-items: center; gap: 14px; }
+  .tile { width: 44px; height: 44px; flex: none; border-radius: var(--eb-radius-icone);
+          display: grid; place-items: center; background: var(--eb-subtom-100);
+          color: var(--eb-primaria-texto); box-shadow: var(--eb-elevacao-1); }
+  .tile svg { width: 21px; height: 21px; }
+  .rot { font-size: 12px; color: var(--eb-texto-suave); }
+  .val { font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .barra { height: 8px; border-radius: var(--eb-radius-pill); background: var(--eb-subtom-100);
+           margin-top: 16px; overflow: hidden; }
+  .barra i { display: block; height: 100%; width: 62%; border-radius: inherit;
+             background: var(--eb-gradiente); }
+  .pct { font-size: 12px; color: var(--eb-texto-suave); margin-top: 8px;
+         font-variant-numeric: tabular-nums; display: flex; justify-content: space-between; }
+
+  .destaque { background: var(--eb-gradiente-suave); }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px;
+          border-radius: var(--eb-radius-pill); font-size: 12px; font-weight: 600;
+          background: var(--eb-card); color: var(--eb-primaria-texto);
+          box-shadow: var(--eb-elevacao-1); }
+  .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--eb-primaria); }
+  .pend { font-size: 15px; font-weight: 600; margin: 10px 0 2px; }
+
+  .folha { position: absolute; left: 10px; right: 10px; bottom: 10px;
+           background: var(--eb-card); border-radius: var(--eb-radius-bloco);
+           padding: 14px 18px 18px; box-shadow: var(--eb-elevacao-4), var(--eb-brilho); }
+  .folha::before { content: ""; display: block; width: 36px; height: 5px; margin: 0 auto 12px;
+                   border-radius: var(--eb-radius-pill); background: var(--eb-borda-sutil); }
+  .folha .linha { justify-content: space-between; }
+  .cta { font: 600 16px var(--eb-fonte-display); color: var(--eb-texto-invertido);
+         background: var(--eb-gradiente-botao); border: 0; border-radius: var(--eb-radius-pill);
+         min-height: 44px; padding: 12px 22px; cursor: pointer;
+         box-shadow: var(--eb-sombra-botao), inset 0 1px 0 rgba(255,255,255,.22);
+         transition: transform var(--eb-dur) var(--eb-ease); }
+  .cta:hover { transform: var(--eb-elevar); }
+
+  .lado { display: grid; gap: 32px; grid-template-columns: minmax(0, 390px) minmax(0, 1fr); align-items: start; }
+  .regras { font-size: 13px; line-height: 1.6; }
+  .regras li { margin-bottom: 10px; }
+  .regras strong { color: var(--eb-texto); }
+  @media (max-width: 760px) { .lado { grid-template-columns: 1fr; } }
+</style>
+
+<h1>Elevação e forma</h1>
+<p class="sub">O "flutuando": cada nível soma uma sombra curta e marrom (onde
+o objeto encosta) e uma longa e terracota (a luz quente que ele rebate),
+mais uma aresta de luz no topo. Sombra cinza apagaria a marca.</p>
+
+<div class="niveis">
+  <div class="nivel" style="--sombra: var(--eb-elevacao-1)">
+    <div><div class="n">1</div><div class="nome">Repouso</div>
+    <div class="uso">Cards em grade, tiles de lista, chips</div></div>
+    <div class="tok">--eb-elevacao-1</div>
+  </div>
+  <div class="nivel" style="--sombra: var(--eb-elevacao-2)">
+    <div><div class="n">2</div><div class="nome">Destaque</div>
+    <div class="uso">Card principal, input em foco. É o <code>--eb-sombra</code>.</div></div>
+    <div class="tok">--eb-elevacao-2</div>
+  </div>
+  <div class="nivel" style="--sombra: var(--eb-elevacao-3)">
+    <div><div class="n">3</div><div class="nome">Flutuante</div>
+    <div class="uso">Navbar ilha, mini-card do hero, FAB, hover</div></div>
+    <div class="tok">--eb-elevacao-3</div>
+  </div>
+  <div class="nivel" style="--sombra: var(--eb-elevacao-4)">
+    <div><div class="n">4</div><div class="nome">Sobreposição</div>
+    <div class="uso">Modal, folha inferior, popover, menu</div></div>
+    <div class="tok">--eb-elevacao-4</div>
+  </div>
+</div>
+
+<h2>Cantos</h2>
+<p class="sub">Canto de dentro = canto de fora menos o espaço entre eles. Card
+de 24 com 8 de folga → filho de 16. Sem isso o canto interno "morde".</p>
+
+<div class="raios">
+  <div class="raio" style="width:64px;height:40px;border-radius:var(--eb-radius-sm)"><span><b>sm</b>10</span></div>
+  <div class="raio" style="width:48px;height:48px;border-radius:var(--eb-radius-icone)"><span><b>ícone</b>14</span></div>
+  <div class="raio" style="width:96px;height:56px;border-radius:var(--eb-radius)"><span><b>padrão</b>16</span></div>
+  <div class="raio" style="width:128px;height:88px;border-radius:var(--eb-radius-card)"><span><b>card</b>24</span></div>
+  <div class="raio" style="width:168px;height:112px;border-radius:var(--eb-radius-bloco)"><span><b>bloco</b>32</span></div>
+  <div class="raio" style="width:104px;height:44px;border-radius:var(--eb-radius-pill)"><span><b>pílula</b></span></div>
+</div>
+
+<h2>Tudo junto — Portal do Cliente</h2>
+<p class="sub">Os quatro níveis numa tela só: fundo com luz no topo, cards em
+repouso e destaque, folha inferior sobreposta.</p>
+
+<div class="lado">
+  <div class="cena">
+    <div class="ola">Olá, Ana</div>
+    <div class="obra">Residência Pinhalzinho</div>
+
+    <div class="card">
+      <div class="linha">
+        <div class="tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-7h6v7"/></svg></div>
+        <div><div class="rot">Avanço físico</div><div class="val">62%</div></div>
+      </div>
+      <div class="barra"><i></i></div>
+      <div class="pct"><span>Etapa 5 de 8 · Revestimentos</span><span>set/26</span></div>
+    </div>
+
+    <div class="card destaque">
+      <span class="chip">Aguardando você</span>
+      <div class="pend">Porcelanato 90×90 · ARQ-04</div>
+      <div class="rot">Alteração marcada no pino 3</div>
+    </div>
+
+    <div class="folha">
+      <div class="linha">
+        <div><div class="rot">Orçamento revisado</div><div class="val">R$ 18.420,00</div></div>
+        <button class="cta">Aprovar</button>
+      </div>
+    </div>
+  </div>
+
+  <ul class="regras">
+    <li><strong>Fundo nunca é chapado.</strong> <code>--eb-gradiente-fundo</code>: luz
+      clara no topo, bege da marca embaixo. É o que dá profundidade antes de
+      qualquer sombra.</li>
+    <li><strong>Card é branco com volume.</strong> <code>--eb-gradiente-card</code>
+      desce do branco a um creme quase invisível, e <code>--eb-brilho</code>
+      acende a aresta de cima. Juntos, parecem uma peça, não um retângulo.</li>
+    <li><strong>Um destaque por tela.</strong> <code>--eb-gradiente-suave</code> marca
+      o card que pede ação. Se todos têm cor, nenhum se destaca.</li>
+    <li><strong>Sobe no hover, afunda no toque.</strong> <code>--eb-elevar</code>
+      (2px) e a sombra do nível seguinte. Desabilitado perde a sombra: não
+      flutua o que não se toca.</li>
+    <li><strong>Gradiente vivo só como enfeite.</strong> A barra de avanço pode;
+      um rótulo em cima dela, não.</li>
+    <li><strong>Folha inferior é nível 4</strong> e respeita a área segura do iPhone
+      (<code>env(safe-area-inset-bottom)</code>) — aqui omitida porque o preview
+      não é um aparelho.</li>
+  </ul>
+</div>

@@ -1,0 +1,339 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html>
+<meta charset="utf-8">
+<title>Paleta — EG Engenharia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* @tokens-preset-a:inicio */
+  :root {
+  /* --- Cor --- */
+  --eb-bg: #e6dcce;             /* fundo do app — bege da marca */
+  --eb-bg-claro: #f4efe9;       /* bege 45% mais claro: telas densas, listas */
+  --eb-card: #ffffff;           /* cards e superficies */
+  --eb-primaria: #cd6543;       /* marca: icone, badge, gradiente, borda */
+  --eb-primaria-botao: #b8532f; /* botao com texto branco — ver "Contraste" */
+  --eb-primaria-texto: #a84a28; /* terracota como TEXTO sobre fundo claro */
+  --eb-acento: #e6a87d;         /* icones, gradiente, anel de foco */
+  --eb-hover: #e2bca8;          /* hover, superficie secundaria */
+  --eb-texto: #2a1b14;
+  --eb-texto-suave: #6b5e55;
+  --eb-texto-invertido: #ffffff;
+  --eb-borda: rgba(255, 255, 255, .5);  /* borda do glassmorphism */
+  --eb-borda-sutil: #e9e2d8;            /* divisoria dentro de card branco */
+
+  /* --- Subtons da primaria (terracota misturada ao branco) ---
+     Superficie clara com identidade: fundo de icone, chip, botao tonal,
+     linha selecionada, card de destaque. 50-200 aceitam os dois textos;
+     300 so aceita --eb-texto (o suave da 3,92:1) — use como borda/enfeite. */
+  --eb-subtom-50:  #fcf6f4;
+  --eb-subtom-100: #f9ede8;
+  --eb-subtom-200: #f4ddd6;
+  --eb-subtom-300: #ecc4b8;
+
+  /* --- Monocromaticos: preto, branco e cinzas neutros (R=G=B) ---
+     Para o que nao deve ter cor: tabela de dados, divisoria, icone
+     neutro, estado desabilitado, documento/PDF, foto em P&B.
+     Contraste como TEXTO (minimo 4,5:1):
+       no branco  → 500 ou mais escuro (500 da 4,74)
+       no bege    → 600 ou mais escuro (500 da 3,50 e REPROVA)
+       texto branco em cima → 500 ou mais escuro
+     O texto do produto continua sendo --eb-texto (marrom quente); o
+     preto e para quando a peca pede neutro de verdade. Cinza e frio:
+     rende melhor sobre card branco do que direto sobre o bege. */
+  --eb-branco: #ffffff;
+  --eb-cinza-50:  #fafafa;
+  --eb-cinza-100: #f4f4f4;
+  --eb-cinza-200: #e8e8e8;
+  --eb-cinza-300: #d4d4d4;
+  --eb-cinza-400: #a3a3a3;
+  --eb-cinza-500: #737373;
+  --eb-cinza-600: #525252;
+  --eb-cinza-700: #3a3a3a;
+  --eb-cinza-800: #262626;
+  --eb-cinza-900: #171717;
+  --eb-preto: #0a0a0a;
+
+  /* --- Forma (Bento Grid) — cantos suaves ---
+     Regra de concentricidade: raio de dentro = raio de fora - padding.
+     Card 24 com padding 8 → filho 16. Sem isso o canto "morde". */
+  --eb-radius-sm: 10px;         /* chip, tag, input pequeno */
+  --eb-radius: 16px;            /* botao, input, tile de lista */
+  --eb-radius-icone: 14px;      /* tile de icone 44-48px (squircle) */
+  --eb-radius-card: 24px;       /* card */
+  --eb-radius-bloco: 32px;      /* bloco grande, folha inferior, modal */
+  --eb-radius-pill: 999px;
+  --eb-pad-card: 32px;
+
+  /* --- Elevacao — o efeito "flutuando" ---
+     Cada nivel e DUAS sombras: uma curta e marrom (contato — onde o
+     objeto "encosta") e uma longa e terracota (ambiente — a luz quente
+     que ele rebate). A longa tem spread negativo: fica embaixo do objeto,
+     nao vaza para os lados. Cinza/preto puro apagaria a identidade.
+       1  repouso      cards em grade, tiles de lista
+       2  destaque     card principal, input em foco
+       3  flutuante    botao, navbar ilha, mini-card, FAB
+       4  sobreposicao modal, folha inferior, popover, menu */
+  --eb-elevacao-1: 0 1px 2px rgba(42, 27, 20, .06),
+                   0 4px 12px -2px rgba(205, 101, 67, .08);
+  --eb-elevacao-2: 0 2px 4px rgba(42, 27, 20, .05),
+                   0 12px 28px -6px rgba(205, 101, 67, .14);
+  --eb-elevacao-3: 0 4px 8px rgba(42, 27, 20, .06),
+                   0 20px 40px -10px rgba(205, 101, 67, .22);
+  --eb-elevacao-4: 0 8px 16px rgba(42, 27, 20, .08),
+                   0 32px 64px -16px rgba(205, 101, 67, .30);
+  --eb-brilho: inset 0 1px 0 rgba(255, 255, 255, .7);   /* aresta de luz no topo */
+  --eb-sombra-botao: 0 10px 24px -8px rgba(184, 83, 47, .55); /* halo do CTA */
+  --eb-sombra: var(--eb-elevacao-2);  /* nome antigo — segue valendo */
+  --eb-elevar: translateY(-2px);      /* hover de quem flutua */
+
+  --eb-blur: blur(12px);
+  --eb-ruido: .04;              /* opacidade do <feTurbulence> global */
+
+  /* --- Gradientes ---
+     Vivo = MARCA, nunca leva texto (branco da 2,05-3,79; escuro 4,38).
+     Botao = unico que leva texto branco: as DUAS pontas passam 4,5:1.
+     Os suaves sao superficie: o texto de cima e sempre --eb-texto. */
+  --eb-gradiente: linear-gradient(120deg, #cd6543, #e6a87d);           /* vivo */
+  --eb-gradiente-botao: linear-gradient(180deg, #bd5733, #a84a28);     /* 4,59 → 5,71 */
+  --eb-gradiente-suave: linear-gradient(135deg, #fcf6f4 0%, #f4ddd6 100%);
+  --eb-gradiente-card: linear-gradient(180deg, #ffffff 0%, #fdf9f7 100%);
+  --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
+
+  /* --- Tipografia --- */
+  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
+  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Movimento --- */
+  --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --eb-dur: 220ms;
+  }
+  /* @tokens-preset-a:fim */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px;
+    font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+    background: var(--eb-gradiente-fundo); background-color: var(--eb-bg);
+    color: var(--eb-texto); min-height: 100vh;
+  }
+  h1 { font-size: 15px; letter-spacing: .04em; text-transform: uppercase;
+       color: var(--eb-texto-suave); font-weight: 600; margin: 0 0 4px; }
+  h2 { font-size: 13px; letter-spacing: .04em; text-transform: uppercase;
+       color: var(--eb-texto-suave); font-weight: 600; margin: 36px 0 4px; }
+  p.sub { margin: 0 0 22px; font-size: 13px; color: var(--eb-texto-suave); max-width: 62ch; }
+  .grade { display: grid; gap: 16px;
+           grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .amostra { border-radius: var(--eb-radius-card); overflow: hidden;
+             background: var(--eb-gradiente-card);
+             box-shadow: var(--eb-elevacao-1), var(--eb-brilho);
+             transition: transform var(--eb-dur) var(--eb-ease),
+                         box-shadow var(--eb-dur) var(--eb-ease); }
+  .amostra:hover { transform: var(--eb-elevar); box-shadow: var(--eb-elevacao-3), var(--eb-brilho); }
+  /* canto do chip = raio do card; nao ha padding entre eles */
+  .chip { height: 82px; }
+  .meta { padding: 12px 16px 16px; }
+  .nome { font-size: 13px; font-weight: 600; }
+  .hex  { font-family: var(--eb-fonte-dados); font-size: 12px;
+          color: var(--eb-texto-suave); font-variant-numeric: tabular-nums;
+          text-transform: uppercase; }
+  .papel { font-size: 11px; color: var(--eb-texto-suave); margin-top: 5px; line-height: 1.45; }
+  .largo { grid-column: 1 / -1; }
+
+  /* Subtons em faixa: le-se como escala */
+  .escala { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .escala > div { padding: 18px 14px 14px; min-height: 108px;
+                  display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; }
+  .escala .t { font-size: 13px; font-weight: 600; color: var(--eb-texto); }
+  .escala .s { font-size: 11px; color: var(--eb-texto-suave); }
+  .escala .x { font-family: var(--eb-fonte-dados); font-size: 11px; color: var(--eb-texto);
+               font-variant-numeric: tabular-nums; }
+  .reprova { color: var(--eb-primaria-texto); font-weight: 600; }
+
+  .mono { display: grid; grid-template-columns: repeat(12, 1fr); }
+  .mono > div { min-height: 96px; padding: 10px 8px; display: flex; flex-direction: column;
+                justify-content: flex-end; gap: 2px; }
+  .mono .x { font-size: 12px; font-weight: 600; color: var(--eb-texto); }
+  .mono .s { font-family: var(--eb-fonte-dados); font-size: 10px; color: var(--eb-texto);
+             font-variant-numeric: tabular-nums; }
+  .mono .esc .x, .mono .esc .s { color: var(--eb-branco); }
+  @media (max-width: 700px) { .mono { grid-template-columns: repeat(6, 1fr); } }
+
+  .grads { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .grads .chip { height: 96px; display: flex; align-items: flex-end; padding: 12px 14px; }
+  .rotulo-botao { color: var(--eb-texto-invertido); font-weight: 700; font-size: 15px; }
+</style>
+
+<h1>Paleta oficial — Preset A · ArchTech SaaS</h1>
+<p class="sub">Valores do brief. Fundo em bege com luz no topo; cards em branco
+com um degradê quase invisível e sombra quente — é o que os faz flutuar.</p>
+
+<div class="grade">
+  <div class="amostra">
+    <div class="chip" style="background:#cd6543"></div>
+    <div class="meta">
+      <div class="nome">Primária</div>
+      <div class="hex">#CD6543</div>
+      <div class="papel">Marca: ícone, badge, borda, gradiente. Sem texto por cima.</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#b8532f"></div>
+    <div class="meta">
+      <div class="nome">Primária · botão</div>
+      <div class="hex">#B8532F</div>
+      <div class="papel">Superfície com texto branco — 4,9:1</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#a84a28"></div>
+    <div class="meta">
+      <div class="nome">Primária · texto</div>
+      <div class="hex">#A84A28</div>
+      <div class="papel">Terracota como letra: link, botão tonal — 5,7:1 no branco</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#e6a87d"></div>
+    <div class="meta">
+      <div class="nome">Acento</div>
+      <div class="hex">#E6A87D</div>
+      <div class="papel">Ícones, gradiente, anel de foco</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#e2bca8"></div>
+    <div class="meta">
+      <div class="nome">Hover</div>
+      <div class="hex">#E2BCA8</div>
+      <div class="papel">Superfície secundária</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#e6dcce"></div>
+    <div class="meta">
+      <div class="nome">Fundo app</div>
+      <div class="hex">#E6DCCE</div>
+      <div class="papel">Bege da marca — base de toda tela</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#f4efe9"></div>
+    <div class="meta">
+      <div class="nome">Fundo claro</div>
+      <div class="hex">#F4EFE9</div>
+      <div class="papel">Telas densas, listas longas, topo do degradê</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#2a1b14"></div>
+    <div class="meta">
+      <div class="nome">Texto principal</div>
+      <div class="hex">#2A1B14</div>
+      <div class="papel">Títulos e corpo — 12,2:1 no bege</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:#6b5e55"></div>
+    <div class="meta">
+      <div class="nome">Texto secundário</div>
+      <div class="hex">#6B5E55</div>
+      <div class="papel">Labels — 4,6:1 no bege</div>
+    </div>
+  </div>
+</div>
+
+<h2>Subtons da primária</h2>
+<p class="sub">A terracota misturada ao branco. É o que deixa a tela clara sem
+perder a marca: fundo de ícone, chip, botão tonal, linha selecionada.</p>
+
+<div class="amostra largo">
+  <div class="escala">
+    <div style="background:var(--eb-subtom-50)">
+      <span class="x">50 · #FCF6F4</span>
+      <span class="t">Texto 15,5:1</span><span class="s">Suave 5,9:1</span>
+    </div>
+    <div style="background:var(--eb-subtom-100)">
+      <span class="x">100 · #F9EDE8</span>
+      <span class="t">Texto 14,5:1</span><span class="s">Suave 5,5:1</span>
+    </div>
+    <div style="background:var(--eb-subtom-200)">
+      <span class="x">200 · #F4DDD6</span>
+      <span class="t">Texto 12,8:1</span><span class="s">Suave 4,8:1</span>
+    </div>
+    <div style="background:var(--eb-subtom-300)">
+      <span class="x">300 · #ECC4B8</span>
+      <span class="t">Texto 10,4:1</span><span class="s reprova">Suave 3,9 — não</span>
+    </div>
+  </div>
+</div>
+
+<h2>Monocromáticos — preto e branco</h2>
+<p class="sub">Cinzas neutros, sem cor. Para dado, tabela, divisória, ícone
+neutro e documento. Como texto: <strong>500+ no branco, 600+ no bege</strong>
+— o 500 dá 4,7:1 no branco e 3,5:1 no bege.</p>
+
+<div class="amostra largo">
+  <div class="mono">
+    <div style="background:var(--eb-branco)"><span class="x">branco</span><span class="s">#FFFFFF</span></div>
+    <div style="background:var(--eb-cinza-50)"><span class="x">50</span><span class="s">#FAFAFA</span></div>
+    <div style="background:var(--eb-cinza-100)"><span class="x">100</span><span class="s">#F4F4F4</span></div>
+    <div style="background:var(--eb-cinza-200)"><span class="x">200</span><span class="s">#E8E8E8</span></div>
+    <div style="background:var(--eb-cinza-300)"><span class="x">300</span><span class="s">#D4D4D4</span></div>
+    <div style="background:var(--eb-cinza-400)"><span class="x">400</span><span class="s">#A3A3A3</span></div>
+    <div class="esc" style="background:var(--eb-cinza-500)"><span class="x">500</span><span class="s">4,7 · 3,5</span></div>
+    <div class="esc" style="background:var(--eb-cinza-600)"><span class="x">600</span><span class="s">7,8 · 5,8</span></div>
+    <div class="esc" style="background:var(--eb-cinza-700)"><span class="x">700</span><span class="s">11,4 · 8,4</span></div>
+    <div class="esc" style="background:var(--eb-cinza-800)"><span class="x">800</span><span class="s">15,1 · 11,2</span></div>
+    <div class="esc" style="background:var(--eb-cinza-900)"><span class="x">900</span><span class="s">17,9 · 13,2</span></div>
+    <div class="esc" style="background:var(--eb-preto)"><span class="x">preto</span><span class="s">#0A0A0A</span></div>
+  </div>
+  <div class="meta"><div class="papel">Números nos escuros: contraste como texto no branco · no bege.</div></div>
+</div>
+
+<h2>Gradientes</h2>
+<p class="sub">Só um leva texto branco: o do botão, com as duas pontas acima
+de 4,5:1. O vivo é marca pura — nem branco nem escuro passam em cima dele.</p>
+
+<div class="grads">
+  <div class="amostra">
+    <div class="chip" style="background:var(--eb-gradiente)"></div>
+    <div class="meta">
+      <div class="nome">Vivo — marca</div>
+      <div class="hex">#CD6543 → #E6A87D</div>
+      <div class="papel">Banner, barra de progresso, gráfico, ícone de destaque. <strong>Nunca com texto.</strong></div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:var(--eb-gradiente-botao)"><span class="rotulo-botao">Aprovar</span></div>
+    <div class="meta">
+      <div class="nome">Botão</div>
+      <div class="hex">#BD5733 → #A84A28</div>
+      <div class="papel">CTA e badge com texto branco — 4,6 a 5,7:1</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:var(--eb-gradiente-suave)"></div>
+    <div class="meta">
+      <div class="nome">Suave</div>
+      <div class="hex">Subtom 50 → 200</div>
+      <div class="papel">Card de destaque, cabeçalho de seção, estado vazio</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:var(--eb-gradiente-card); box-shadow: inset 0 -1px 0 var(--eb-borda-sutil)"></div>
+    <div class="meta">
+      <div class="nome">Card</div>
+      <div class="hex">#FFFFFF → #FDF9F7</div>
+      <div class="papel">Todo card. Quase invisível — dá volume, não cor.</div>
+    </div>
+  </div>
+  <div class="amostra">
+    <div class="chip" style="background:var(--eb-gradiente-fundo)"></div>
+    <div class="meta">
+      <div class="nome">Fundo</div>
+      <div class="hex">#F4EFE9 → #E6DCCE</div>
+      <div class="papel">Fundo de tela: luz vindo de cima, bege da marca embaixo.</div>
+    </div>
+  </div>
+</div>

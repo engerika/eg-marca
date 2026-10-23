@@ -1,0 +1,177 @@
+/* ============================================================
+   Design tokens — EG Engenharia (site, portal do cliente, app)
+   ------------------------------------------------------------
+   Os mesmos valores que o DESIGN.md (ao lado) declara como norma,
+   escritos como variaveis CSS. Derivados da marca pessoal Erika
+   Barros (pasta eb/, identidade da Alegria Design, 2022) e do brief
+   de landing do Antigravity.
+
+   Preset A = padrao oficial. Preset B = alternativa industrial,
+   aplicada com [data-preset="industrial"] no <html>. Sao presets
+   irmaos escolhidos por projeto, nao um par claro/escuro.
+
+   ATENCAO: os previews em componentes/ repetem o bloco Preset A
+   inline, para renderizarem isolados no painel do Design System, e
+   o DESIGN.md repete os valores em YAML. sincronizar-tokens.py
+   confere os dois — se divergirem, o script falha. Mudou aqui, rode
+   o script.
+   ============================================================ */
+
+/* @tokens-preset-a:inicio */
+:root {
+  /* --- Cor --- */
+  --eb-bg: #e6dcce;             /* fundo do app — bege da marca */
+  --eb-bg-claro: #f4efe9;       /* bege 45% mais claro: telas densas, listas */
+  --eb-card: #ffffff;           /* cards e superficies */
+  --eb-primaria: #cd6543;       /* marca: icone, badge, gradiente, borda */
+  --eb-primaria-botao: #b8532f; /* botao com texto branco — ver "Contraste" */
+  --eb-primaria-texto: #a84a28; /* terracota como TEXTO sobre fundo claro */
+  --eb-acento: #e6a87d;         /* icones, gradiente, anel de foco */
+  --eb-hover: #e2bca8;          /* hover, superficie secundaria */
+  --eb-texto: #2a1b14;
+  --eb-texto-suave: #6b5e55;
+  --eb-texto-invertido: #ffffff;
+  --eb-borda: rgba(255, 255, 255, .5);  /* borda do glassmorphism */
+  --eb-borda-sutil: #e9e2d8;            /* divisoria dentro de card branco */
+
+  /* --- Subtons da primaria (terracota misturada ao branco) ---
+     Superficie clara com identidade: fundo de icone, chip, botao tonal,
+     linha selecionada, card de destaque. 50-200 aceitam os dois textos;
+     300 so aceita --eb-texto (o suave da 3,92:1) — use como borda/enfeite. */
+  --eb-subtom-50:  #fcf6f4;
+  --eb-subtom-100: #f9ede8;
+  --eb-subtom-200: #f4ddd6;
+  --eb-subtom-300: #ecc4b8;
+
+  /* --- Monocromaticos: preto, branco e cinzas neutros (R=G=B) ---
+     Para o que nao deve ter cor: tabela de dados, divisoria, icone
+     neutro, estado desabilitado, documento/PDF, foto em P&B.
+     Contraste como TEXTO (minimo 4,5:1):
+       no branco  → 500 ou mais escuro (500 da 4,74)
+       no bege    → 600 ou mais escuro (500 da 3,50 e REPROVA)
+       texto branco em cima → 500 ou mais escuro
+     O texto do produto continua sendo --eb-texto (marrom quente); o
+     preto e para quando a peca pede neutro de verdade. Cinza e frio:
+     rende melhor sobre card branco do que direto sobre o bege. */
+  --eb-branco: #ffffff;
+  --eb-cinza-50:  #fafafa;
+  --eb-cinza-100: #f4f4f4;
+  --eb-cinza-200: #e8e8e8;
+  --eb-cinza-300: #d4d4d4;
+  --eb-cinza-400: #a3a3a3;
+  --eb-cinza-500: #737373;
+  --eb-cinza-600: #525252;
+  --eb-cinza-700: #3a3a3a;
+  --eb-cinza-800: #262626;
+  --eb-cinza-900: #171717;
+  --eb-preto: #0a0a0a;
+
+  /* --- Forma (Bento Grid) — cantos suaves ---
+     Regra de concentricidade: raio de dentro = raio de fora - padding.
+     Card 24 com padding 8 → filho 16. Sem isso o canto "morde". */
+  --eb-radius-sm: 10px;         /* chip, tag, input pequeno */
+  --eb-radius: 16px;            /* botao, input, tile de lista */
+  --eb-radius-icone: 14px;      /* tile de icone 44-48px (squircle) */
+  --eb-radius-card: 24px;       /* card */
+  --eb-radius-bloco: 32px;      /* bloco grande, folha inferior, modal */
+  --eb-radius-pill: 999px;
+  --eb-pad-card: 32px;
+
+  /* --- Elevacao — o efeito "flutuando" ---
+     Cada nivel e DUAS sombras: uma curta e marrom (contato — onde o
+     objeto "encosta") e uma longa e terracota (ambiente — a luz quente
+     que ele rebate). A longa tem spread negativo: fica embaixo do objeto,
+     nao vaza para os lados. Cinza/preto puro apagaria a identidade.
+       1  repouso      cards em grade, tiles de lista
+       2  destaque     card principal, input em foco
+       3  flutuante    botao, navbar ilha, mini-card, FAB
+       4  sobreposicao modal, folha inferior, popover, menu */
+  --eb-elevacao-1: 0 1px 2px rgba(42, 27, 20, .06),
+                   0 4px 12px -2px rgba(205, 101, 67, .08);
+  --eb-elevacao-2: 0 2px 4px rgba(42, 27, 20, .05),
+                   0 12px 28px -6px rgba(205, 101, 67, .14);
+  --eb-elevacao-3: 0 4px 8px rgba(42, 27, 20, .06),
+                   0 20px 40px -10px rgba(205, 101, 67, .22);
+  --eb-elevacao-4: 0 8px 16px rgba(42, 27, 20, .08),
+                   0 32px 64px -16px rgba(205, 101, 67, .30);
+  --eb-brilho: inset 0 1px 0 rgba(255, 255, 255, .7);   /* aresta de luz no topo */
+  --eb-sombra-botao: 0 10px 24px -8px rgba(184, 83, 47, .55); /* halo do CTA */
+  --eb-sombra: var(--eb-elevacao-2);  /* nome antigo — segue valendo */
+  --eb-elevar: translateY(-2px);      /* hover de quem flutua */
+
+  --eb-blur: blur(12px);
+  --eb-ruido: .04;              /* opacidade do <feTurbulence> global */
+
+  /* --- Gradientes ---
+     Vivo = MARCA, nunca leva texto (branco da 2,05-3,79; escuro 4,38).
+     Botao = unico que leva texto branco: as DUAS pontas passam 4,5:1.
+     Os suaves sao superficie: o texto de cima e sempre --eb-texto. */
+  --eb-gradiente: linear-gradient(120deg, #cd6543, #e6a87d);           /* vivo */
+  --eb-gradiente-botao: linear-gradient(180deg, #bd5733, #a84a28);     /* 4,59 → 5,71 */
+  --eb-gradiente-suave: linear-gradient(135deg, #fcf6f4 0%, #f4ddd6 100%);
+  --eb-gradiente-card: linear-gradient(180deg, #ffffff 0%, #fdf9f7 100%);
+  --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
+
+  /* --- Tipografia --- */
+  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
+  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* --- Movimento --- */
+  --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --eb-dur: 220ms;
+}
+/* @tokens-preset-a:fim */
+
+/* --- Preset B · Industrial Luxury & Structural --- */
+:root[data-preset="industrial"] {
+  --eb-bg: #2a1b14;
+  --eb-card: #3a2820;
+  --eb-primaria: #cd6543;
+  --eb-primaria-botao: #b8532f;
+  --eb-acento: #e6a87d;
+  --eb-texto: #faf8f5;
+  --eb-texto-suave: #a89f91;
+  --eb-texto-invertido: #2a1b14;
+  --eb-borda: rgba(255, 255, 255, .12);
+  --eb-borda-sutil: #4a362c;
+  --eb-bg-claro: #33231b;
+  --eb-primaria-texto: #e08a64;   /* 5,31:1 no card escuro */
+
+  /* Subtons: terracota misturada ao CARD, nao ao branco — clarear sobre
+     marrom ofusca. Aqui 50-100 aceitam os dois textos; 200 so o principal. */
+  --eb-subtom-50:  #432c22;
+  --eb-subtom-100: #4c2f24;
+  --eb-subtom-200: #5a3528;
+  --eb-subtom-300: #723f2d;
+
+  /* No escuro a sombra quente some: vira preta e mais densa, e quem
+     desenha a borda de cima e o --eb-brilho (luz fraca). */
+  --eb-elevacao-1: 0 1px 2px rgba(0, 0, 0, .30), 0 4px 12px -2px rgba(0, 0, 0, .25);
+  --eb-elevacao-2: 0 2px 4px rgba(0, 0, 0, .30), 0 12px 28px -6px rgba(0, 0, 0, .40);
+  --eb-elevacao-3: 0 4px 8px rgba(0, 0, 0, .35), 0 20px 40px -10px rgba(0, 0, 0, .50);
+  --eb-elevacao-4: 0 8px 16px rgba(0, 0, 0, .40), 0 32px 64px -16px rgba(0, 0, 0, .60);
+  --eb-brilho: inset 0 1px 0 rgba(255, 255, 255, .08);
+  --eb-sombra-botao: 0 10px 24px -8px rgba(205, 101, 67, .45);
+
+  --eb-gradiente-suave: linear-gradient(135deg, #432c22 0%, #5a3528 100%);
+  --eb-gradiente-card: linear-gradient(180deg, #423129 0%, #3a2820 100%);
+  --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #3a2820 0%, #2a1b14 70%);
+
+  --eb-fonte-dados: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* ------------------------------------------------------------
+   Contraste — por que existem duas primarias
+
+   Branco sobre --eb-primaria (#CD6543) da 3,79:1. Passa em AA para
+   texto grande (3:1) e para componente de UI, mas NAO para texto
+   normal (4,5:1).
+
+   Por isso:
+     --eb-primaria        marca — icone, badge, gradiente, borda
+     --eb-primaria-botao  #B8532F (4,9:1) — qualquer superficie com
+                          texto branco por cima
+
+   A familia da cor nao muda; muda so o componente que precisa ser
+   lido sob sol, que e o requisito nº 2 do app.
+   ------------------------------------------------------------ */
