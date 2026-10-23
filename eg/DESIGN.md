@@ -194,8 +194,12 @@ assinatura técnica, no "Sobre", no CREA —, mas as duas não se confundem:
 peça da empresa leva a marca EG; peça pessoal da engenheira leva a EB.
 
 **Logo da EG: ainda não existe.** Até existir, site e app usam o
-**símbolo EB como provisório** (`../eb/logos/`). Ao criar o logo da EG,
-trocar nos dois e registrar aqui.
+**símbolo EB como provisório** (`../eb/marca/simbolo/`). Ao criar o logo
+da EG, trocar nos dois e registrar aqui.
+
+As quatro cores-base da EG (`background`, `tertiary`, `secondary`,
+`primary`) são **exatamente** a paleta do manual da EB. Todo o resto
+(subtons, neutros, as duas terracotas escuras, elevação) é da EG.
 
 ## Colors
 
@@ -257,6 +261,12 @@ Duas famílias, com papéis que não se misturam:
 - **Inter com `tabular-nums`** — **todo número**: valor, porcentagem,
   m², data, saldo, simulador. Sem algarismo tabular os dígitos dançam
   quando o valor muda, e este produto é número mudando na tela.
+
+**Diferença da EB, `[FALTA DECIDIR]`:** o manual da EB manda usar
+**Prompt** em todas as peças, site incluído. A EG usa Plus Jakarta Sans,
+que veio do brief do Antigravity, não da agência. Ou a EG adota Prompt
+(e fica mais próxima da EB), ou mantém Plus Jakarta Sans (e se distingue
+dela).
 
 No título de abertura, a frase de efeito pode ir em **serifa itálica**
 (Georgia ou equivalente, peso 400): "Engenharia de precisão para

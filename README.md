@@ -6,7 +6,7 @@ Barros**, num lugar só, cada uma na sua pasta.
 | Pasta | Marca | O que tem |
 |---|---|---|
 | [`eg/`](eg/) | **EG Engenharia** — a empresa e o sistema (site, portal do cliente, app) | `DESIGN.md`, `tokens.css`, componentes de referência |
-| [`eb/`](eb/) | **EB — Erika Barros** — marca pessoal da engenheira (Alegria Design, 2022) | logos; aguardando os arquivos da agência |
+| [`eb/`](eb/) | **EB — Erika Barros** — marca pessoal da engenheira (Alegria Design, 2022) | `DESIGN.md` (resumo do manual), símbolo, marca tipográfica, padronagem, elementos (PNG e PDF vetor) |
 
 A paleta da EG **veio da EB** e foi ampliada. As duas não se confundem:
 peça da empresa leva EG, peça pessoal da engenheira leva EB.
@@ -23,6 +23,10 @@ Conferir o arquivo (formato, referências e contraste WCAG):
 
 ```bash
 npx @google/design.md lint eg/DESIGN.md
+```
+
+```bash
+npx @google/design.md lint eb/DESIGN.md
 ```
 
 Os avisos `orphaned-tokens` (cor que nenhum componente usa) são
