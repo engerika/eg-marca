@@ -113,8 +113,9 @@
   --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
 
   /* --- Tipografia --- */
-  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
-  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --eb-fonte-display: "Geist", -apple-system, "Segoe UI", sans-serif;   /* toda a interface */
+  --eb-fonte-dados: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; /* codigo, id, linha tecnica */
+  --eb-fonte-pixel: "Courier Prime", ui-monospace, monospace;        /* detalhe "maquina de escrever" */
 
   /* --- Movimento --- */
   --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -157,7 +158,6 @@
   --eb-gradiente-card: linear-gradient(180deg, #423129 0%, #3a2820 100%);
   --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #3a2820 0%, #2a1b14 70%);
 
-  --eb-fonte-dados: "IBM Plex Mono", ui-monospace, monospace;
 }
 
 /* ------------------------------------------------------------

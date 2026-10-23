@@ -4,7 +4,7 @@
 <title>Tipografia — EG Engenharia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* @tokens-preset-a:inicio */
   :root {
@@ -102,8 +102,9 @@
   --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
 
   /* --- Tipografia --- */
-  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
-  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --eb-fonte-display: "Geist", -apple-system, "Segoe UI", sans-serif;   /* toda a interface */
+  --eb-fonte-dados: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; /* codigo, id, linha tecnica */
+  --eb-fonte-pixel: "Courier Prime", ui-monospace, monospace;        /* detalhe "maquina de escrever" */
 
   /* --- Movimento --- */
   --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -113,7 +114,7 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 32px;
-    font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+    font-family: var(--eb-fonte-display);
     background: var(--eb-bg); color: var(--eb-texto);
   }
   .titulo-secao { font-size: 15px; letter-spacing: .04em; text-transform: uppercase;
@@ -125,32 +126,32 @@
            display: grid; grid-template-columns: 124px 1fr; gap: 22px; align-items: baseline; }
   .linha:first-child { border-top: 0; padding-top: 0; }
   .rotulo { font-size: 11px; color: var(--eb-texto-suave);
-            font-family: "Inter", monospace; font-variant-numeric: tabular-nums; }
-  .d1 { font-size: 46px; font-weight: 800; line-height: 1.08; letter-spacing: -.025em; }
+            font-family: var(--eb-fonte-dados); font-variant-numeric: tabular-nums; }
+  .d1 { font-size: 46px; font-weight: 300; line-height: 1.05; letter-spacing: -.025em; }
   .d1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
-  .d2 { font-size: 30px; font-weight: 700; line-height: 1.18; letter-spacing: -.015em; }
-  .h3 { font-size: 20px; font-weight: 600; line-height: 1.3; }
+  .d2 { font-size: 30px; font-weight: 300; line-height: 1.15; letter-spacing: -.015em; }
+  .h3 { font-size: 20px; font-weight: 400; line-height: 1.3; }
   .corpo { font-size: 15px; font-weight: 400; line-height: 1.65; max-width: 52ch; }
-  .rot { font-size: 12px; font-weight: 600; letter-spacing: .06em;
+  .rot { font-size: 11px; font-weight: 500; letter-spacing: .1em;
          text-transform: uppercase; color: var(--eb-texto-suave); }
-  .dado { font-family: "Inter", monospace; font-size: 24px; font-weight: 600;
-          font-variant-numeric: tabular-nums; color: var(--eb-primaria); }
+  .dado { font-size: 24px; font-weight: 300;
+          font-variant-numeric: tabular-nums; color: var(--eb-primaria-texto); }
 </style>
 
 <div class="titulo-secao">Escala tipográfica</div>
-<p class="sub">Plus Jakarta Sans na interface. Inter com <code>tabular-nums</code> em todo número.</p>
+<p class="sub">Geist na interface, títulos leves (300). Números em Geist com <code>tabular-nums</code>; Geist Mono para código e linha técnica.</p>
 
 <div class="painel">
-  <div class="linha"><div class="rotulo">Display 46/800</div>
+  <div class="linha"><div class="rotulo">Display 46/300</div>
     <div class="d1">Engenharia de precisão para <em>transformar sua obra.</em></div></div>
-  <div class="linha"><div class="rotulo">Título 30/700</div>
+  <div class="linha"><div class="rotulo">Título 30/300</div>
     <div class="d2">Gestão de obras em tempo real</div></div>
-  <div class="linha"><div class="rotulo">Subtítulo 20/600</div>
+  <div class="linha"><div class="rotulo">Subtítulo 20/400</div>
     <div class="h3">Simulador de custo por m²</div></div>
   <div class="linha"><div class="rotulo">Corpo 15/400</div>
     <div class="corpo">Acompanhamento técnico de reformas e obras, com orçamento aberto e cronograma físico-financeiro atualizado a cada etapa.</div></div>
-  <div class="linha"><div class="rotulo">Rótulo 12/600</div>
+  <div class="linha"><div class="rotulo">Rótulo 11/500</div>
     <div class="rot">Etapa concluída</div></div>
-  <div class="linha"><div class="rotulo">Dado 24/600</div>
+  <div class="linha"><div class="rotulo">Dado 24/300</div>
     <div class="dado">R$ 148.320,00 &nbsp;·&nbsp; 42%</div></div>
 </div>

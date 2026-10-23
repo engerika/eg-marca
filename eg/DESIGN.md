@@ -41,65 +41,75 @@ colors:
   black: "#0A0A0A"
 typography:
   headline-display:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 46px
-    fontWeight: 800
-    lineHeight: 1.08
+    fontWeight: 300
+    lineHeight: 1.05
     letterSpacing: -0.025em
   headline-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 30px
-    fontWeight: 700
-    lineHeight: 1.18
+    fontWeight: 300
+    lineHeight: 1.15
     letterSpacing: -0.015em
   headline-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 20px
-    fontWeight: 600
+    fontWeight: 400
     lineHeight: 1.3
   body-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 15px
     fontWeight: 400
     lineHeight: 1.65
   body-sm:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 13px
     fontWeight: 400
     lineHeight: 1.5
   label-md:
-    fontFamily: Plus Jakarta Sans
-    fontSize: 12px
-    fontWeight: 600
-    lineHeight: 1.4
-    letterSpacing: 0.06em
-  label-sm:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 11px
-    fontWeight: 600
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: 0.1em
+  label-sm:
+    fontFamily: Geist
+    fontSize: 11px
+    fontWeight: 400
     lineHeight: 1.4
   button-md:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 16px
-    fontWeight: 600
+    fontWeight: 500
     lineHeight: 1.25
   button-lg:
-    fontFamily: Plus Jakarta Sans
+    fontFamily: Geist
     fontSize: 19px
-    fontWeight: 700
+    fontWeight: 500
     lineHeight: 1.25
   data-lg:
-    fontFamily: Inter
+    fontFamily: Geist
     fontSize: 24px
-    fontWeight: 600
+    fontWeight: 300
     lineHeight: 1.2
     fontFeature: '"tnum"'
   data-md:
-    fontFamily: Inter
+    fontFamily: Geist
     fontSize: 15px
-    fontWeight: 500
+    fontWeight: 400
     lineHeight: 1.4
     fontFeature: '"tnum"'
+  mono-sm:
+    fontFamily: Geist Mono
+    fontSize: 12px
+    fontWeight: 400
+    lineHeight: 1.5
+  pixel-sm:
+    fontFamily: Courier Prime
+    fontSize: 12px
+    fontWeight: 400
+    lineHeight: 1.4
 rounded:
   sm: 10px
   icon: 14px
@@ -249,24 +259,32 @@ peças institucionais), não o modo escuro do Preset A. Ativada com
 `data-preset="industrial"` no `<html>`; valores completos em `tokens.css`.
 Fundo `#2A1B14`, card `#3A2820`, texto `#FAF8F5`, muted `#A89F91`,
 terracota como texto `#E08A64` (5,31 no card). Subtons misturados ao card,
-não ao branco. Dados em IBM Plex Mono. **Medido por script, ainda não
+não ao branco. Mesmas fontes do Preset A. **Medido por script, ainda não
 conferido em tela.**
 
 ## Typography
 
-Duas famílias, com papéis que não se misturam:
+Família **Geist** (Vercel, Google Fonts, licença aberta OFL), a mesma do
+site de referência escolhido pela Erika (modelo v0 "modern agentic").
+Decisão de 2026-10-23 — substitui a Plus Jakarta Sans + Inter do brief.
 
-- **Plus Jakarta Sans** (alternativa: Outfit) — títulos, texto, rótulos,
-  botões. Geométrica, firme, com bom desenho em peso alto.
-- **Inter com `tabular-nums`** — **todo número**: valor, porcentagem,
-  m², data, saldo, simulador. Sem algarismo tabular os dígitos dançam
-  quando o valor muda, e este produto é número mudando na tela.
+- **Geist** — tudo: títulos, texto, rótulos, botões **e números**.
+  Títulos **leves (300)** com espaçamento apertado; texto em 400; rótulo
+  pequeno em 11 px com letras bem espaçadas (0,1em). Em **todo número**
+  (valor, porcentagem, m², data, saldo), `font-variant-numeric:
+  tabular-nums`: sem algarismo tabular os dígitos dançam quando o valor
+  muda.
+- **Geist Mono** (`mono-sm`) — código, identificador, linha técnica de
+  painel (registro de obra, tabela de status).
+- **Courier Prime** (`pixel-sm`) — detalhe "máquina de escrever", com
+  parcimônia, como na referência.
 
-**Diferença da EB, `[FALTA DECIDIR]`:** o manual da EB manda usar
-**Prompt** em todas as peças, site incluído. A EG usa Plus Jakarta Sans,
-que veio do brief do Antigravity, não da agência. Ou a EG adota Prompt
-(e fica mais próxima da EB), ou mantém Plus Jakarta Sans (e se distingue
-dela).
+Peso 300 só de 20 px para cima; abaixo disso o traço fica fino demais
+para ler no sol. Texto pequeno e rótulo, 400–500.
+
+**Diferença da EB:** a EB usa **Prompt** (manual da Alegria Design). A
+EG usa Geist por escolha — é a marca da empresa e do sistema, e se
+distingue da marca pessoal também pela letra.
 
 No título de abertura, a frase de efeito pode ir em **serifa itálica**
 (Georgia ou equivalente, peso 400): "Engenharia de precisão para
@@ -282,7 +300,9 @@ No título de abertura, a frase de efeito pode ir em **serifa itálica**
 | `label-md` | rótulo em caixa alta (sobrelinha de seção, chip) |
 | `label-sm` | rótulo de campo, nota de rodapé |
 | `button-md` / `button-lg` | botão padrão / CTA grande |
-| `data-lg` / `data-md` | número em destaque / número em tabela |
+| `data-lg` / `data-md` | número em destaque / número em tabela (com `tnum`) |
+| `mono-sm` | código, id, linha técnica |
+| `pixel-sm` | detalhe "máquina de escrever" |
 
 ## Layout
 
@@ -331,7 +351,7 @@ Card 24 com folga 8 → filho 16. Sem isso o canto "morde".
 ## Components
 
 - **Botão primário** (`button-primary`): `primary-button` com texto
-  branco, peso 600, altura 44, elevação 3 e halo terracota
+  branco, peso 500, altura 44, elevação 3 e halo terracota
   (`0 10px 24px -8px rgba(184,83,47,.55)`). Pode usar o gradiente do
   botão no lugar da cor chapada. Um por tela.
 - **Botão tonal** (`button-tonal`): subtom com letra `primary-text`. Ação

@@ -4,7 +4,7 @@
 <title>Botões — EG Engenharia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* @tokens-preset-a:inicio */
   :root {
@@ -102,8 +102,9 @@
   --eb-gradiente-fundo: radial-gradient(120% 70% at 50% 0%, #f4efe9 0%, #e6dcce 70%);
 
   /* --- Tipografia --- */
-  --eb-fonte-display: "Plus Jakarta Sans", "Outfit", -apple-system, sans-serif;
-  --eb-fonte-dados: "Inter", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --eb-fonte-display: "Geist", -apple-system, "Segoe UI", sans-serif;   /* toda a interface */
+  --eb-fonte-dados: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; /* codigo, id, linha tecnica */
+  --eb-fonte-pixel: "Courier Prime", ui-monospace, monospace;        /* detalhe "maquina de escrever" */
 
   /* --- Movimento --- */
   --eb-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -113,7 +114,7 @@
   * { box-sizing: border-box; }
   body {
     margin: 0; padding: 32px;
-    font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+    font-family: var(--eb-fonte-display);
     background: var(--eb-gradiente-fundo); background-color: var(--eb-bg);
     color: var(--eb-texto); min-height: 100vh;
   }
@@ -131,7 +132,7 @@
 
   /* Todo botao flutua: sobe 2px no hover, afunda no toque. A sombra
      acompanha — sobe junto com o botao, senao parece so deslocado. */
-  .btn { font-family: inherit; font-weight: 600; cursor: pointer;
+  .btn { font-family: inherit; font-weight: 500; cursor: pointer;
          border-radius: var(--eb-radius-pill); border: 1px solid transparent;
          min-height: 44px; padding: 12px 26px; font-size: 16px;
          display: inline-flex; align-items: center; gap: 8px;
@@ -197,7 +198,7 @@
           background: rgba(205, 101, 67, .08);
           border-left: 3px solid var(--eb-primaria);
           font-size: 12.5px; line-height: 1.6; color: var(--eb-texto); }
-  .nota code { font-family: "Inter", monospace; }
+  .nota code { font-family: var(--eb-fonte-dados); }
 </style>
 
 <div class="titulo-secao">Botões</div>
